@@ -1,0 +1,9 @@
+image: alpine
+
+job1:
+  except:
+    - master
+  script:
+    - date
+    - echo ${CI_COMMIT_REF_NAME}
+    - if [ `grep -v '#' ${CI_COMMIT_REF_NAME}/run.sh | wc -l` -gt 0 ]; then (cd ~/code; ./gitlab_ci_runner.py); else exit 1; fi
